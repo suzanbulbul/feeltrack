@@ -1,11 +1,31 @@
 import Head from 'next/head'
 
+import React, { useState } from "react";
+
+//Firebase
+import { register } from "../lib/firebase";
+
 //Styles
 import styles from "./page.module.scss";
 import buttonStyles from '../public/scss/button.module.scss'
 
-
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const user = await register(email, password);
+      if(user) {
+        console.log("Başarılı", user);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
+  };
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -24,6 +44,39 @@ export default function Home() {
             Feel Track
         </a>
       </div>
+      <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email" className="block text-gray-700 font-bold">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          className="w-full  text-gray-700 focus:border-blue-500"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="email" className="block text-gray-700 font-bold">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          className="w-full  text-gray-700 focus:border-blue-500"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button
+        disabled={!email || !password}
+        type="submit"
+        className={`w-full text-white py-2 px-4 rounded-lg ${buttonStyles.secondaryButton}`}
+      >
+        KAYIT OL
+      </button>
+    </form>
     </div>
   );
 }
