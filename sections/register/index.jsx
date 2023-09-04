@@ -83,7 +83,7 @@ export default function Register() {
       <button
         disabled={!email || !password}
         type="submit"
-        className={`w-full text-white py-2 px-4 rounded-lg secondaryButton`}
+        className="secondaryButton"
       >
         KAYIT OL
       </button>

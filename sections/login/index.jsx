@@ -57,7 +57,7 @@ export default function Login() {
       <button
         disabled={!email || !password}
         type="submit"
-        className={`w-full secondaryButton`}
+        className="secondaryButton"
       >
         GİRİŞ YAP
       </button>
