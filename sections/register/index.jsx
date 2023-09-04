@@ -22,9 +22,8 @@ export default function Register() {
     event.preventDefault();
     try {
       const user = await register(email, password);
-      console.log("register", user);
       if(user) {
-        router.push("/");
+        console.log("register", user);
       }
     } catch (error) {
       console.error("Registration error:", error);
