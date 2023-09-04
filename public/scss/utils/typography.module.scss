@@ -1,0 +1,38 @@
+.title{
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 40px;
+    @media (max-width: 767px) {
+        font-size: 35px;
+        margin-bottom: 25px;
+    }
+}
+.desc{
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+
+.label{
+    color: $gray;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0;
+}
+
+.link{
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    color: $gray;
+    text-decoration: underline;
+    &:hover{
+        color: $primary-color;
+        text-decoration: underline;
+    }
+}

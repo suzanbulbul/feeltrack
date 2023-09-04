@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Utils
+@import 'utils/global.module.scss';
+@import 'utils/colors.module.scss';
+@import 'utils/typography.module.scss';
+@import 'utils/grid.module.scss';
+
+ // Components
+@import 'components/button.module.scss';
+@import 'components/form.module.scss';
+@import 'components/input.module.scss';
+@import 'components/card.module.scss';
+
+ // Page
+//  @import 'pages/page.module.scss';
+

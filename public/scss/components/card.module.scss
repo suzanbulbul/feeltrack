@@ -1,0 +1,9 @@
+.card{
+    border-radius: 20px;
+    padding: 30px;
+    margin: 5%;
+    
+    &-blur{
+        background: $ivory-blur;
+    }
+}

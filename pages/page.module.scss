@@ -1,3 +1,45 @@
-.page{
-    background: #d6acc4;
-}
+.main {
+    height: 100vh;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/feel-track.appspot.com/o/login-img.jpg?alt=media&token=5e197b1c-f686-4644-94d5-2cd77314f3b7");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    .card{
+      max-width: 40%;
+      h1, p{
+        color: #48301A;
+      }
+    }
+  
+    aside{
+      display: flex;
+      justify-content: flex-end;
+  
+      height: 100vh;
+  
+      @media (max-width: 1024px ) {
+        height: 100%;
+  
+        justify-content: center;
+        align-items: center;
+      }
+  
+    }
+  
+    .form{
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      
+      @media (max-width: 1024px ) {
+  
+        justify-content: center;
+        align-items: center;
+  
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+      }
+    }
+  
+  }
+  
