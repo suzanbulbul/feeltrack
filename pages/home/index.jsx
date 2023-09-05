@@ -1,13 +1,21 @@
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-const notify = () => toast.success('Here is your toast.');
+// Firebase
+import { logout } from "../../lib/firebase";
 
+const handleLogout = async () => {
+  try {
+    await logout();
+    console.log("Logout successful");
+  } catch (error) {
+    console.error("Logout error:", error);
+ }
+};
 const Home = () => {
   return (
     <div>
-      <button onClick={notify}>Make me a toast</button>
-      <Toaster />
+      <button onClick={handleLogout}>Çıkış</button>
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useRouter } from 'next/router';
 
+import toast, { Toaster } from 'react-hot-toast';
+
+
 //Firebase
 import { register } from "../../lib/firebase";
 
@@ -21,14 +24,22 @@ export default function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const user = await register(email, password);
+      const user = await register(email, password, firstname, lastname);
       if(user) {
-        console.log("register", user);
+        resetForm();
+        toast.success('Hesap başarılı bir şekilde oluşturuldu.')
       }
     } catch (error) {
-      console.error("Registration error:", error);
+      toast.error("Registration error:", error);
     }
   };
+
+  const resetForm = () => {
+    setFirstname("");
+    setLastname("");
+    setEmail("");
+    setPassword("");
+  }
   
 
   return (
