@@ -3,7 +3,7 @@
     height: 50px;
     position: relative;
 
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 
     input{
         width: 100%;
@@ -29,6 +29,13 @@
             color: $gray;
             font-weight: 500;
         }
+        &.error {
+            border: 2px solid $error;
+          }
+      
+        &.success {
+        border: 2px solid $success;
+        }
       
     }
 
@@ -46,6 +53,11 @@
             top: 47%;
             left: 21px;
             transform: translateY(-50%);
+
+            &.right{
+                left: initial;
+                right: 21px;
+            }
     
         }
 

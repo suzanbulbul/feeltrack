@@ -37,10 +37,10 @@ export const register = async (email, password, firstname, lastname) => {
       firstname: firstname,
       lastname: lastname,
     });
-    console.log(user, "user");
     return user;
   } catch (error) {
     console.log(error.message);
+    throw error;
   }
 };
 
@@ -50,6 +50,7 @@ export const login = async (email, password) => {
     return user;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -59,6 +60,7 @@ export const logout = async () => {
     return true;
   } catch (error) {
     console.log(error.message);
+    throw error;
   }
 };
 

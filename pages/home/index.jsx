@@ -1,18 +1,22 @@
 import React from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 // Firebase
-import { logout } from "../../lib/firebase";
+import { logout } from "../../utilities/firebase";
 
-const handleLogout = async () => {
-  try {
-    await logout();
-    console.log("Logout successful");
-  } catch (error) {
-    console.error("Logout error:", error);
- }
-};
 const Home = () => {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push("/");
+      console.log("Logout successful");
+    } catch (error) {
+      console.error("Logout error:", error);
+   }
+  };
+
   return (
     <div>
       <button onClick={handleLogout}>Çıkış</button>

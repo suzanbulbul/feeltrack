@@ -1,0 +1,48 @@
+.icon-eye {
+  svg{
+    color: $gray; 
+    cursor: pointer;
+
+    &:hover {
+      color: $dark;
+    }
+  }
+}
+.label{
+  color: $error;
+
+  position: relative;
+    left: 17px;
+}
+
+.improvedContainer{
+  margin-bottom: 80px;
+}
+
+.passwordImprovedValidation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
+  
+    position: relative;
+    left: 28px;
+
+    li{
+      list-style-type: disc;
+    }
+  
+    .listItem {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      color: $gray;
+  
+      &.error {
+        color: $error;
+      }
+  
+      &.success {
+        color:$success;
+      }
+    }
+} 

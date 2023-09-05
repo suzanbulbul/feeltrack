@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from 'next/router';
 
 //Firebase
-import { login } from "../../lib/firebase";
+import { login } from "../../utilities/firebase";
 
 //Icons
 import { AiOutlineMail } from "react-icons/ai";
