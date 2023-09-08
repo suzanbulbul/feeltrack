@@ -47,7 +47,7 @@ export default function Register() {
 
         if(user) {
           resetForm();
-          toast.success('Hesap başarılı bir şekilde oluşturuldu.')
+          toast.success("Registration successful.")
         }
      }
     } catch (error) {
@@ -72,9 +72,14 @@ export default function Register() {
           setPasswordError(true);
           setPasswordErrorText("Weak Password");
           break;
-        default:
-          console.log("Kayıt sırasında bir hata oluştu.");
-          break;
+          default:
+            if(email && password && firstname && lastname){
+              toast.error('An error occurred while logging in.')
+            }
+            else{
+              console.log(error)
+            }
+            break;
       }
     }
   };
@@ -204,7 +209,7 @@ export default function Register() {
         type="submit"
         className="secondaryButton"
       >
-        KAYIT OL
+        SIGN UP
       </button>
     </form>
   );

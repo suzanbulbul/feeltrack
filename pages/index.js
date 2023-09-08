@@ -14,8 +14,8 @@ import Tab from "../components/tab";
 import styles from "./page.module.scss";
 
 const tabs = [
-  { name: "register", label: "Kayıt Ol" },
-  { name: "login", label: "Giriş Yap" },
+  { name: "register", label: "SIGN UP" },
+  { name: "login", label: "LOGIN" },
 ];
 
 export default function Home() {
@@ -32,12 +32,9 @@ export default function Home() {
         <div
           className={`hidden lg:block absolute top-10 card card-blur ${styles.card}`}
         >
-          <h1 className="title">Hoş Geldiniz!</h1>
+          <h1 className="title">Welcome!</h1>
           <p className="desc">
-            Duygusal sağlığınızı daha yakından takip etmek ve geliştirmek için
-            buradasınız. FeelTrack size günlük duygusal durumlarınızı kaydetme
-            ve izleme fırsatı sunuyor. Haydi başlayalım ve içsel yolculuğunuza
-            adım atalım!
+          You're here to track and improve your emotional well-being more closely. FeelTrack offers you the opportunity to record and monitor your daily emotional states. Let's get started and take the first step on your inner journey!
           </p>
         </div>
         <aside >
