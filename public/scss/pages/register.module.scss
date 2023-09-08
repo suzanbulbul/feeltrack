@@ -9,7 +9,7 @@
   }
 }
 .label{
-  color: $error;
+  color: $warning;
 
   position: relative;
     left: 17px;
@@ -38,7 +38,7 @@
       color: $gray;
   
       &.error {
-        color: $error;
+        color: $warning;
       }
   
       &.success {
