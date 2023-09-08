@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-//Firabese
-
 //Sections
 import Login from "../sections/login";
 import Register from "../sections/register";
