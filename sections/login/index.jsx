@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 //Firebase
 import { login } from "../../utilities/firebase";
+import { loginHandle } from "../../redux/authSlice"; // authSlice dosyanıza uygun yolu vermelisiniz
 
 //Icons
 import { AiOutlineMail } from "react-icons/ai";
@@ -11,24 +13,25 @@ import { RiLockPasswordLine } from "react-icons/ri";
 
 export default function Login() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const [emailErrorText, setEmailErrorText] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState("");
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    inputValidation();
-    
+    const isValid = inputValidation();
+
     try {
-      if(inputValidation()) {
+      if (isValid) {
         const user = await login(email, password);
-        toast.success('Login successful.')
-        if(user){
+        if (user) {
+          dispatch(loginHandle(user.providerData[0])); // Kullanıcıyı Redux store'a ekleyin
+          toast.success("Login successful.");
           router.push("/home");
         }
       }
@@ -42,12 +45,12 @@ export default function Login() {
         case "auth/wrong-password":
           setPasswordError(true);
           setPasswordErrorText("Please enter the correct password.");
-          break
+          break;
         default:
-          if(email && password){
+          if (email && password) {
             toast.error('An error occurred while logging in.')
-          }
-          else{
+            console.log(error)
+          } else {
             console.log(error)
           }
           break;
@@ -56,17 +59,20 @@ export default function Login() {
   };
 
   const inputValidation = () => {
-    if(!email){
-      setEmailError(true)
-      setEmailErrorText("Please fill out this field.")
+    let isValid = true;
+    if (!email) {
+      setEmailError(true);
+      setEmailErrorText("Please fill out this field.");
+      isValid = false;
     }
-    if(!password){
-      setPasswordError(true)
-      setPasswordErrorText("Please fill out this field.")
+    if (!password) {
+      setPasswordError(true);
+      setPasswordErrorText("Please fill out this field.");
+      isValid = false;
     }
-    return true;
+    return isValid;
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="input input-icon">
@@ -94,16 +100,12 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           onFocus={() => setPasswordError(false)}
-
         />
-          {passwordError && (
+        {passwordError && (
           <label className="label text-red-500">{passwordErrorText}</label>
         )}
       </div>
-      <button
-        type="submit"
-        className="secondaryButton"
-      >
+      <button type="submit" className="secondaryButton">
         LOGIN
       </button>
     </form>
