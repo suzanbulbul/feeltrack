@@ -9,13 +9,20 @@ import { logout } from "../../utilities/firebase";
 import { logout as logoutHandle } from "../../redux/authSlice";
 import { logoutComplete } from "../../redux/authSlice";
 
+//Components
+import Modal from '../../components/modal';
+
+// Sections
+import InitialModal from '../../sections/initialModal'
+
 const Home = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
+
   const user = useSelector((state) => state.auth.user);
-  const isLoggingOut = useSelector((state) => state.auth.isLoggingOut);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,6 +42,10 @@ const Home = () => {
       console.error("Logout error:", error);
     }
   };
+  
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   if (loading) {
     return <p>Yükleniyor...</p>;
@@ -42,9 +53,15 @@ const Home = () => {
 
   return (
     <div>
-      {user &&
-       <p>Hey <b>{user.displayName}</b> FeedTrick ile güne başla</p>}
+      {user && (
+        <p>
+          Hey <b>{user.displayName}</b> FeedTrick ile güne başla
+        </p>
+      )}
       <button onClick={handleLogout}>Çıkış</button>
+      <Modal isOpen={modalIsOpen}>
+        <InitialModal onClose={closeModal}/>
+      </Modal>
     </div>
   );
 }

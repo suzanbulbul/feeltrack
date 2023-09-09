@@ -8,8 +8,8 @@
 @tailwind utilities;
 
 // Utils
-@import 'utils/global.module.scss';
 @import 'utils/colors.module.scss';
+@import 'utils/global.module.scss';
 @import 'utils/typography.module.scss';
 @import 'utils/grid.module.scss';
 
@@ -22,5 +22,9 @@
 
 // Page
 @import 'pages/register.module.scss';
+
+// Sections
+@import 'sections/initialModal.module.scss';
+
 
 

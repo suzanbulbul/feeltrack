@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const usePasswordValidation = ({ password = "", requiredLength = 8}) => {
+const usePasswordValidation = ({ password = "", requiredLength = 6}) => {
   const [validLength, setValidLength] = useState(null);
   const [hasNumber, setHasNumber] = useState(null);
   const [upperCase, setUpperCase] = useState(null);

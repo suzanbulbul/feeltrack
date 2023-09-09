@@ -1,0 +1,20 @@
+.initialModal{
+ 
+    form{
+        label{
+            width: 200px;
+        }
+        input{
+            width: 200px;
+        }
+    }
+    .docButton{
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 60px;
+    }
+    .submitButton{
+        width: 100%;
+        margin-top: 60px;
+    }
+}

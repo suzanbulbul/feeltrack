@@ -114,7 +114,7 @@ export default function Register() {
   const createPassword = () => {
     return (
       <ul className="passwordImprovedValidation">
-        <li className={`listItem ${validLength ? "success" : passwordError && "error"}`}>minimum 8 characters</li>
+        <li className={`listItem ${validLength ? "success" : passwordError && "error"}`}>minimum 6 characters</li>
         <li className={`listItem ${upperCase ? "success": passwordError && "error"}`}>one uppercase character</li>
         <li className={`listItem ${lowerCase ? "success": passwordError && "error"}`}>one lowercase character</li>
         <li className={`listItem ${specialChar ? "success" : passwordError && "error"}`}>one special character</li>
@@ -132,7 +132,7 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="register" onSubmit={handleSubmit}>
       <div className="flex justify-between items-center">
         <div className="input input-icon mr-10">
           <HiPencilAlt className="icon" />
