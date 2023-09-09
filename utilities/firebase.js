@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
-// import firebase  from "firebase/compat/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore"; // Firestore fonksiyonlarını içe aktarın
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
    apiKey: process.env.REACT_APP_API_KEY,
@@ -15,20 +14,6 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
-
-
-// // Firebase daha önce başlatılmadıysa başlatın
-// if (!app.apps.length) {
-//   // Firebase daha önce başlatılmadıysa başlat
-//   initializeApp(firebaseConfig);
-// }
-
-
-// // This step is intended to prevent Firebase from being initialized multiple times, as Firebase should only be initialized once anywhere in the project.
-// if(!firebase.apps.length){ 
-//   firebase.initializeApp(firebaseConfig);
-// };
-
 
 export const register = async (email, password, firstname, lastname) => {
   try {
