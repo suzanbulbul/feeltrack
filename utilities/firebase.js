@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -18,10 +18,17 @@ const db = getFirestore(app);
 export const register = async (email, password, firstname, lastname) => {
   try {
     const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    
+    const displayName = `${firstname} ${lastname}`;
+    await updateProfile(user, { displayName });
+    
+    // Saved user information to Firestore
     await setDoc(doc(db, "users", user.uid), {
       firstname: firstname,
       lastname: lastname,
+      email: email,
     });
+    
     return user;
   } catch (error) {
     console.log(error.message);
@@ -48,6 +55,7 @@ export const logout = async () => {
     throw error;
   }
 };
+
 
 export default app;
 

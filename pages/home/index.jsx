@@ -42,7 +42,8 @@ const Home = () => {
 
   return (
     <div>
-      {user && <p><b>{user.email}</b> için giriş yapıldı...</p>}
+      {user &&
+       <p>Hey <b>{user.displayName}</b> FeedTrick ile güne başla</p>}
       <button onClick={handleLogout}>Çıkış</button>
     </div>
   );
