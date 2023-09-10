@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 
 //Firebase
 import { login } from "../../utilities/firebase";
+
+//Redux
 import { loginHandle } from "../../redux/authSlice"; // authSlice dosyanıza uygun yolu vermelisiniz
 
 //Icons
@@ -30,7 +32,7 @@ export default function Login() {
       if (isValid) {
         const user = await login(email, password);
         if (user) {
-          dispatch(loginHandle(user.providerData[0])); // Kullanıcıyı Redux store'a ekleyin
+          dispatch(loginHandle(JSON.stringify(user)));
           toast.success("Login successful.");
           router.push("/home");
         }

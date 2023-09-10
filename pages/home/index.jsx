@@ -22,13 +22,14 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user?.providerData[0]);
+  const userInfo = useSelector((state) => state.auth.info);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    });
-  }, [user]);
+ useEffect(() => {
+   setTimeout(() => {
+     setLoading(false);
+   });
+ }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -53,15 +54,16 @@ const Home = () => {
 
   return (
     <div>
-      {user && (
+     {user && (
         <p>
           Hey <b>{user.displayName}</b> FeedTrick ile güne başla
         </p>
       )}
       <button onClick={handleLogout}>Çıkış</button>
-      <Modal isOpen={modalIsOpen}>
+      {!userInfo && <Modal isOpen={modalIsOpen}>
         <InitialModal onClose={closeModal}/>
-      </Modal>
+      </Modal> }
+      
     </div>
   );
 }

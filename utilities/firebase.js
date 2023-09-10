@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, updateDoc } from "firebase/firestore";
 
 const firebaseConfig = {
    apiKey: process.env.REACT_APP_API_KEY,
@@ -55,6 +55,34 @@ export const logout = async () => {
     throw error;
   }
 };
+
+export const saveUserInformation = async (userId, wakeupTime, bedtime, exercise, items) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    const dataToUpdate = {
+      userInfo: {
+        wakeupTime: wakeupTime,
+        bedtime: bedtime,
+        exercise: exercise,
+        extraInfo: items,
+      },
+    };
+
+    // Firestore dokümanı güncelleme işlemi
+    await updateDoc(userRef, dataToUpdate);
+    
+    return "İşlem başarıyla tamamlandı", dataToUpdate.userInfo;
+  } catch (error) {
+    console.error("Veritabanı güncelleme hatası: ", error);
+    throw error;
+  }
+};
+
+
+
+
+
+
 
 
 export default app;

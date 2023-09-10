@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+//Firebase
+import { saveUserInformation } from "../../utilities/firebase";
+
+// Redux
+import { infoHandle } from "../../redux/infoSlice";
 
 // Icons
 import {  AiFillPlusCircle } from "react-icons/ai";
@@ -7,6 +14,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import { BsCheckCircle } from "react-icons/bs";
 
 const initialModal = ({onClose}) => {
+  const dispatch = useDispatch();
   const [docVisible, setDocVisible] = useState(false);
   const [wakeupTime, setWakeupTime] = useState('06:00');
   const [bedtime, setBedtime] = useState('23:59');
@@ -15,19 +23,22 @@ const initialModal = ({onClose}) => {
   const [items, setItems] = useState([]);
   const [addArea, setAddArea] = useState(true);
 
+  const user = useSelector((state) => state.auth.user);
+
   const toggleDoc = () => {
     setDocVisible(!docVisible);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
-      wakeupTime,
-      bedtime,
-      exercise,
-      items,
-    };
-    console.log('Form verileri:', formData);
+
+    try {
+      const userInformation = await saveUserInformation(user.uid, wakeupTime, bedtime, exercise, items);
+      dispatch(infoHandle(userInformation));
+      onClose();
+    } catch (error) {
+      console.error("Bilgiler kaydedilirken hata oluştu: ", error);
+    }
     onClose();
   };
 
