@@ -20,10 +20,8 @@
 @import 'components/card.module.scss';
 @import 'components/header.module.scss';
 
-// Page
-@import 'pages/register.module.scss';
-
 // Sections
+@import 'sections/auth-form.module.scss';
 @import 'sections/initialModal.module.scss';
 
 

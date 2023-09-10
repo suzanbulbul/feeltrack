@@ -132,7 +132,7 @@ export default function Register() {
   }
 
   return (
-    <form className="register" onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <div className="flex justify-between items-center">
         <div className="input input-icon mr-10">
           <HiPencilAlt className="icon" />

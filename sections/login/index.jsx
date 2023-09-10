@@ -74,7 +74,7 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <div className="input input-icon">
         <AiOutlineMail className="icon" />
         <input
