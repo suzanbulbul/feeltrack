@@ -8,6 +8,8 @@ import { logout } from "../../utilities/firebase";
 // Store
 import { logout as logoutHandle } from "../../redux/authSlice";
 import { logoutComplete } from "../../redux/authSlice";
+import { logoutInfo } from "../../redux/infoSlice";
+import { logoutInfoComplete } from "../../redux/infoSlice";
 
 //Components
 import Modal from '../../components/modal';
@@ -34,6 +36,8 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      dispatch(logoutInfo());
+      dispatch(logoutInfoComplete());
       dispatch(logoutHandle());
       dispatch(logoutComplete());
 
