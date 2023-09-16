@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from "../../utilities/firebase";
 
 // Store
-import { logout as logoutHandle } from "../../redux/authSlice";
-import { logoutComplete } from "../../redux/authSlice";
-import { logoutInfo } from "../../redux/infoSlice";
-import { logoutInfoComplete } from "../../redux/infoSlice";
+import { logout as logoutHandle } from "../../redux/userSlice";
+import { logoutComplete } from "../../redux/userSlice";
+import { logoutInfo } from "../../redux/userSlice";
+import { logoutInfoComplete } from "../../redux/userSlice";
 
 //Components
 import Modal from '../../components/modal';
@@ -24,8 +24,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
-  const user = useSelector((state) => state.auth.user?.providerData[0]);
-  const userInfo = useSelector((state) => state.auth.info);
+  const user = useSelector((state) => state.user.user?.providerData[0]);
+  const userInfo = useSelector((state) => state.user.info);
 
  useEffect(() => {
    setTimeout(() => {
@@ -36,8 +36,6 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      dispatch(logoutInfo());
-      dispatch(logoutInfoComplete());
       dispatch(logoutHandle());
       dispatch(logoutComplete());
 

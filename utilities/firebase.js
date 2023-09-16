@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
    apiKey: process.env.REACT_APP_API_KEY,
@@ -39,9 +39,18 @@ export const register = async (email, password, firstname, lastname) => {
 export const login = async (email, password) => {
   try {
     const { user } = await signInWithEmailAndPassword(auth, email, password);
+
+    // Firestore'dan kullanıcı bilgilerini al
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    const userData = userDoc.data();
+
+    if (userData) {
+      user.userData = userData;
+    }
+    
     return user;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     throw error;
   }
 };

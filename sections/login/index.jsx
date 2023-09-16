@@ -7,7 +7,8 @@ import toast from 'react-hot-toast';
 import { login } from "../../utilities/firebase";
 
 //Redux
-import { loginHandle } from "../../redux/authSlice"; // authSlice dosyanıza uygun yolu vermelisiniz
+import { loginHandle } from "../../redux/userSlice"; // userSlice dosyanıza uygun yolu vermelisiniz
+import { infoHandle } from "../../redux/userSlice"; 
 
 //Icons
 import { AiOutlineMail } from "react-icons/ai";
@@ -33,6 +34,7 @@ export default function Login() {
         const user = await login(email, password);
         if (user) {
           dispatch(loginHandle(JSON.stringify(user)));
+          dispatch(infoHandle(user.userData));
           toast.success("Login successful.");
           router.push("/home");
         }

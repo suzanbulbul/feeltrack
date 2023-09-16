@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { saveUserInformation } from "../../utilities/firebase";
 
 // Redux
-import { infoHandle } from "../../redux/infoSlice";
+import { infoHandle } from "../../redux/userSlice";
 
 // Icons
 import {  AiFillPlusCircle } from "react-icons/ai";
@@ -23,7 +23,7 @@ const initialModal = ({onClose}) => {
   const [items, setItems] = useState([]);
   const [addArea, setAddArea] = useState(true);
 
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.user.user);
 
   const toggleDoc = () => {
     setDocVisible(!docVisible);
