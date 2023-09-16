@@ -19,8 +19,9 @@ const initialModal = ({onClose}) => {
   const [wakeupTime, setWakeupTime] = useState('06:00');
   const [bedtime, setBedtime] = useState('23:59');
   const [exercise, setExercise] = useState(30);
-  const [newItem, setNewItem] = useState({ key: '', value: '' });
   const [items, setItems] = useState([]);
+  const [newItemKey, setNewItemKey] = useState('');
+  const [newItemValue, setNewItemValue] = useState('');
   const [addArea, setAddArea] = useState(true);
 
   const user = useSelector((state) => state.user.user);
@@ -45,9 +46,11 @@ const initialModal = ({onClose}) => {
 
   const handleAddItem = () => {
     setAddArea(true);
-    if (newItem.key && newItem.value) {
+    if (newItemKey && newItemValue) {
+      const newItem = { [newItemKey]: newItemValue };
       setItems([...items, newItem]);
-      setNewItem({ key: '', value: '' });
+      setNewItemKey('');
+      setNewItemValue('');
     }
   };
 
@@ -55,10 +58,6 @@ const initialModal = ({onClose}) => {
     const newItems = [...items];
     newItems.splice(index, 1);
     setItems(newItems);
-  };
-
-  const addItem = () => {
-    setAddArea(!addArea);
   };
 
   return (
@@ -110,39 +109,49 @@ const initialModal = ({onClose}) => {
         </div>
         {items.length > 0 && (
           <div>
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="input mb-4 flex justify-between items-center"
-              >
-                <label className="label block font-semibold">{item.key}</label>
-                <div className='flex justify-center items-center'>
-                  <input
-                    type="number"
-                    name="bedtime"
-                    value={item.value}
-                    onChange={(e) => {
-                      const newItems = [...items];
-                      newItems[index].value = e.target.value;
-                      setItems(newItems);
-                    }}
-                    className="border rounded-md p-2 w-full"
-                    style={{ width: "150px" }}
-                  />
-                  <RxCrossCircled
-                    className="cursor-pointer"
-                    onClick={() => handleRemoveItem(index)}
-                    style={{ fontSize: "1.5rem", color: "red", marginLeft: '22px' }}
-                  />
-                </div>
+            {items.length > 0 && (
+              <div>
+                {items.map((item, index) => (
+                  <div
+                    key={index}
+                    className="input mb-4 flex justify-between items-center"
+                  >
+                    <label className="label block font-semibold">
+                      {Object.keys(item)[0]}
+                    </label>
+                    <div className="flex justify-center items-center">
+                      <input
+                        type="number"
+                        name="bedtime"
+                        value={Object.values(item)[0]}
+                        onChange={(e) => {
+                          const newItems = [...items];
+                          newItems[index][newItemKey] = e.target.value;
+                          setItems(newItems);
+                        }}
+                        className="border rounded-md p-2 w-full"
+                        style={{ width: "150px" }}
+                      />
+                      <RxCrossCircled
+                        className="cursor-pointer"
+                        onClick={() => handleRemoveItem(index)}
+                        style={{
+                          fontSize: "1.5rem",
+                          color: "red",
+                          marginLeft: "22px",
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         )}
         {addArea ? (
           <button
             className="flex justify-between items-center"
-            onClick={addItem}
+            onClick={() => setAddArea(!addArea)}
           >
             <AiFillPlusCircle
               className="cursor-pointer"
@@ -159,37 +168,39 @@ const initialModal = ({onClose}) => {
             <input
               type="text"
               placeholder="Alan Adı"
-              value={newItem.key}
-              onChange={(e) => setNewItem({ ...newItem, key: e.target.value })}
+              value={newItemKey}
+              onChange={(e) => setNewItemKey(e.target.value)}
               className="border rounded-md p-2 w-full"
               style={{ width: "150px" }}
             />
-        <div className='flex justify-center items-center'>
-        <input
-              type="number"
-              placeholder="Alan Değeri"
-              value={newItem.value}
-              onChange={(e) =>
-                setNewItem({ ...newItem, value: e.target.value })
-              }
-              className="border rounded-md p-2 w-full"
-              style={{ width: "150px" }}
-            />
-            {newItem.key && newItem.value ? (
-              <BsCheckCircle
-                onClick={handleAddItem}
-                className="cursor-pointer"
-                style={{ fontSize: "1.3rem",marginLeft: '25px', color: "green" }}
+            <div className="flex justify-center items-center">
+              <input
+                type="number"
+                placeholder="Alan Değeri"
+                value={newItemValue}
+                onChange={(e) => setNewItemValue(e.target.value)}
+                className="border rounded-md p-2 w-full"
+                style={{ width: "150px" }}
               />
-            ) : (
-              <PiArrowUUpLeftBold
-              style={{ fontSize: "1.3rem",  marginLeft: '25px' }}
-                onClick={() => {
-                  setAddArea(true);
-                }}
-              />
-            )}
-        </div>
+              {newItemKey && newItemValue ? (
+                <BsCheckCircle
+                  onClick={handleAddItem}
+                  className="cursor-pointer"
+                  style={{
+                    fontSize: "1.3rem",
+                    marginLeft: "25px",
+                    color: "green",
+                  }}
+                />
+              ) : (
+                <PiArrowUUpLeftBold
+                  style={{ fontSize: "1.3rem", marginLeft: "25px" }}
+                  onClick={() => {
+                    setAddArea(true);
+                  }}
+                />
+              )}
+            </div>
           </div>
         )}
 

@@ -6,13 +6,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from "../../utilities/firebase";
 
 // Store
-import { logout as logoutHandle } from "../../redux/userSlice";
-import { logoutComplete } from "../../redux/userSlice";
-import { logoutInfo } from "../../redux/userSlice";
-import { logoutInfoComplete } from "../../redux/userSlice";
+import { logout as logoutHandle, logoutComplete, selectUser, selectUserInfo } from "../../redux/userSlice";
+
+// Utilities
+import { flattenUserInfo } from "../../utilities/helpers/flattenUserInfo";
 
 //Components
 import Modal from '../../components/modal';
+import Table from '../../components/table';
 
 // Sections
 import InitialModal from '../../sections/initialModal'
@@ -24,13 +25,18 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
-  const user = useSelector((state) => state.user.user?.providerData[0]);
-  const userInfo = useSelector((state) => state.user.info?.userInfo);
+  const user = useSelector(selectUser);
+  const info = useSelector(selectUserInfo);
 
+  // const flattendata= flattenUserInfo(info)
 
   useEffect(() => {
-    setLoading(false); 
-  }, [user]);
+    if (!info || !user) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [info, user]);
 
   const handleLogout = async () => {
     try {
@@ -60,11 +66,16 @@ const Home = () => {
           Hey <b>{user.displayName}</b> FeedTrick ile güne başla
         </p>
       )}
-      <button onClick={handleLogout}>Çıkış</button>
-      {!userInfo && <Modal isOpen={modalIsOpen}>
-        <InitialModal onClose={closeModal}/>
-      </Modal> }
-      
+
+      {!info ? (
+        <Modal isOpen={modalIsOpen}>
+          <InitialModal onClose={closeModal} />
+        </Modal>
+      ) : (
+        <Table data={info} />
+      )} 
+
+     <button onClick={handleLogout}>Çıkış</button>
     </div>
   );
 }

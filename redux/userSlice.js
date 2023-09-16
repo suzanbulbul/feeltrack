@@ -28,4 +28,9 @@ const userSlice = createSlice({
 });
 
 export const { loginHandle, infoHandle, logout, logoutComplete } = userSlice.actions;
+
+export const selectUser = (state) => state.user.user?.providerData[0];
+export const selectInfo = (state) => state.user.info;
+export const selectUserInfo = (state) => state.user.info?.userInfo;
+
 export default userSlice.reducer;
