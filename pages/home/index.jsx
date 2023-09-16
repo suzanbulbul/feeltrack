@@ -25,18 +25,17 @@ const Home = () => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
   const user = useSelector((state) => state.user.user?.providerData[0]);
-  const userInfo = useSelector((state) => state.user.info);
+  const userInfo = useSelector((state) => state.user.info?.userInfo);
 
- useEffect(() => {
-   setTimeout(() => {
-     setLoading(false);
-   });
- }, [user]);
+
+  useEffect(() => {
+    setLoading(false); 
+  }, [user]);
 
   const handleLogout = async () => {
     try {
-      await logout();
       dispatch(logoutHandle());
+      await logout();
       dispatch(logoutComplete());
 
       router.push("/");

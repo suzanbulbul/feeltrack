@@ -33,7 +33,8 @@ const initialModal = ({onClose}) => {
     e.preventDefault();
 
     try {
-      const userInformation = await saveUserInformation(user.uid, wakeupTime, bedtime, exercise, items);
+      const userInfo = await saveUserInformation(user.uid, wakeupTime, bedtime, exercise, items);
+      const userInformation= {userInfo}
       dispatch(infoHandle(userInformation));
       onClose();
     } catch (error) {
