@@ -17,6 +17,8 @@ import Table from '../../components/table';
 
 // Sections
 import InitialModal from '../../sections/initialModal'
+import Head from '../../sections/head';
+
 
 const Home = () => {
   const router = useRouter();
@@ -61,6 +63,7 @@ const Home = () => {
 
   return (
     <div>
+     <Head title="Feel Track - Home"/>
      {user && (
         <p>
           Hey <b>{user.displayName}</b> FeedTrick ile güne başla

@@ -25,7 +25,11 @@ export default function Home() {
 
   return (
     <div>
-      <Head />
+      <Head 
+        title="FeelTrack - Login and Register" 
+        desc="Login to FeelTrack or create a new account. Start tracking your emotional state." 
+        keywords="emotional state tracking, login, register, account creation"
+      />
       <main className={`${styles.main}`}>
         <div
           className={`hidden lg:block absolute top-10 card card-blur ${styles.card}`}

@@ -13,7 +13,7 @@ import { PiArrowUUpLeftBold } from "react-icons/pi";
 import { RxCrossCircled } from "react-icons/rx";
 import { BsCheckCircle } from "react-icons/bs";
 
-const initialModal = ({onClose}) => {
+const InitialModal = ({onClose}) => {
   const dispatch = useDispatch();
   const [docVisible, setDocVisible] = useState(false);
   const [wakeupTime, setWakeupTime] = useState('06:00');
@@ -212,4 +212,4 @@ const initialModal = ({onClose}) => {
   );
 };
 
-export default initialModal;
+export default InitialModal;
