@@ -1,0 +1,43 @@
+.checkItem{
+    background-color: $light-pink;
+    border-radius: 30px;
+    box-shadow: 1px 1px 25px -6px $dark-pink;
+
+
+    margin: 20px 0;
+    padding: 20px;
+
+    &:hover{
+        box-shadow: 2px 1px 15px 1px$dark-pink;
+        .title{
+            font-size: 22px;
+        }
+        .icon{
+            font-size: 27px;
+        }
+    }
+
+    .title{
+        font-size: 20px;
+        color: $dark-pink;
+        text-transform: capitalize;
+        margin: 0;
+    }
+
+    .icon{
+        font-size: 25px;
+        margin-right: 25px;
+        &.wakeup{
+            color: $yellow;
+        }
+        &.bedtime{
+            color: $gray;
+        }
+        &.exercise{
+            color: $blue;
+        }
+        &.todo{
+            color: $primary-color;
+        }
+    }
+}

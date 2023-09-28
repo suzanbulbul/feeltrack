@@ -1,57 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-
-// Firebase
-import { logout } from "../../utilities/firebase";
+import { useSelector } from 'react-redux';
 
 // Store
-import { logout as logoutHandle, logoutComplete, selectUser, selectUserInfo } from "../../redux/userSlice";
-
-// Utilities
-import { flattenUserInfo } from "../../utilities/helpers/flattenUserInfo";
+import { selectUser, selectUserInfo, selecLoggingOut } from "../../redux/userSlice";
 
 //Components
 import Modal from '../../components/modal';
-import Table from '../../components/table';
 
 // Sections
 import InitialModal from '../../sections/initialModal'
 import Head from '../../sections/head';
+import DailyList from '../../sections/dailyList';
 
 
 const Home = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
   const user = useSelector(selectUser);
   const info = useSelector(selectUserInfo);
+  const loggingOut = useSelector(selecLoggingOut);
 
-  // const flattendata= flattenUserInfo(info)
 
   useEffect(() => {
-    if (!info || !user) {
+    if (!user) {
       setLoading(true);
     } else {
       setLoading(false);
     }
-  }, [info, user]);
-
-  const handleLogout = async () => {
-    try {
-      dispatch(logoutHandle());
-      await logout();
-      dispatch(logoutComplete());
-
-      router.push("/");
-      console.log("Logout successful");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
+  }, [user]);
   
   const closeModal = () => {
     setModalIsOpen(false);
@@ -60,13 +38,18 @@ const Home = () => {
   if (loading) {
     return <p>Yükleniyor...</p>;
   }
+  if (loggingOut) {
+    return <p>Çıkış Yapılıyor...</p>;
+  }
 
   return (
     <div>
      <Head title="Feel Track - Home"/>
      {user && (
-        <p>
-          Hey <b>{user.displayName}</b> FeedTrick ile güne başla
+        <p className='subtitle mb-10'>
+          Hey <b>{user.displayName}</b>
+          <br/>
+          FeedTrick ile güne başla
         </p>
       )}
 
@@ -75,10 +58,9 @@ const Home = () => {
           <InitialModal onClose={closeModal} />
         </Modal>
       ) : (
-        <Table data={info} />
+        <DailyList />
       )} 
 
-     <button onClick={handleLogout}>Çıkış</button>
     </div>
   );
 }

@@ -32,5 +32,6 @@ export const { loginHandle, infoHandle, logout, logoutComplete } = userSlice.act
 export const selectUser = (state) => state.user.user?.providerData[0];
 export const selectInfo = (state) => state.user.info;
 export const selectUserInfo = (state) => state.user.info?.userInfo;
+export const selecLoggingOut = (state) => state.user.isLoggingOut;
 
 export default userSlice.reducer;

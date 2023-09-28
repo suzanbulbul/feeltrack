@@ -1,11 +1,34 @@
-import React from 'react';
+import React  from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import Link from 'next/link';
+
+// Firebase
+import { logout } from "../../utilities/firebase";
+// Store
+import { logout as logoutHandle, logoutComplete} from "../../redux/userSlice";
 
 //Icons
 import { BiUserCircle } from "react-icons/bi";
 import { MdAutoGraph } from "react-icons/md";
 
 const Header = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      dispatch(logoutHandle());
+      await logout();
+      dispatch(logoutComplete());
+
+      router.push("/");
+      console.log("Logout successful");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div className="header">
       <div className="flex justify-between items-center">
@@ -23,6 +46,9 @@ const Header = () => {
           </Link>
           <BiUserCircle className="icon"/>
         </div>
+      </div>
+      <div>
+            <button onClick={handleLogout}>Çıkış</button>
       </div>
     </div>
   );
