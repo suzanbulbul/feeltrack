@@ -10,7 +10,7 @@ import { logout as logoutHandle, logoutComplete } from "../../redux/userSlice";
 
 // Icons
 import { BiUserCircle } from "react-icons/bi";
-import { MdAutoGraph } from "react-icons/md";
+import { MdAutoGraph, MdOutlineSettings, MdOutlineExitToApp } from "react-icons/md";
 
 const Header = () => {
   const router = useRouter();
@@ -61,23 +61,52 @@ const Header = () => {
             alt="logo"
           />
         </Link>
+        <div className="navbar">
+          <ul className="flex justify-between items-center">
+          <li className="px-5">
+              <Link href="/home">Home</Link>
+            </li>
+            <li className="px-5">
+              <Link href="/analysis">Analysis</Link>
+            </li>
+          </ul>
+        </div>
+
         <div className="flex justify-between items-center">
-          <Link href="/analysis">
-            <MdAutoGraph className="icon" />
-          </Link>
           <div ref={userEditorRef}>
-            <BiUserCircle onClick={() => setUserEditor(!userEditor)} className={`icon ${userEditor && `active`}`} />
+            <BiUserCircle
+              onClick={() => setUserEditor(!userEditor)}
+              className={`icon ${userEditor && `active`}`}
+            />
             {userEditor && (
               <div className="user-editor">
                 <ul>
                   <li>
-                    <button onClick={routeringPage("/analysis")}>Analysis</button>
+                    <button
+                      className="flex justify-start items-center"
+                      onClick={routeringPage("/analysis")}
+                    >
+                      <MdAutoGraph className="icon" />
+                      Analysis
+                    </button>
                   </li>
                   <li>
-                    <button onClick={routeringPage("/settings")}>Settings</button>
+                    <button
+                      className="flex justify-start items-center"
+                      onClick={routeringPage("/settings")}
+                    >
+                      <MdOutlineSettings className="icon" />
+                      Settings
+                    </button>
                   </li>
                   <li>
-                    <button onClick={handleLogout}>Çıkış</button>
+                    <button
+                      className="flex justify-start items-center"
+                      onClick={handleLogout}
+                    >
+                      <MdOutlineExitToApp className="icon" />
+                      Çıkış
+                    </button>
                   </li>
                 </ul>
               </div>
