@@ -1,8 +1,7 @@
 import React from 'react';
 
-// Sections
-import Head from '../../sections/head';
-
+// Components
+import Head from '../../components/head';
 
 const Analysis = () => {
   return (

@@ -3,10 +3,10 @@ import React, { useState } from "react";
 //Sections
 import Login from "../sections/login";
 import Register from "../sections/register";
-import Head from "../sections/head";
 
 //Components
 import Tab from "../components/tab";
+import Head from "../components/head";
 
 // Styles
 import styles from "./page.module.scss";

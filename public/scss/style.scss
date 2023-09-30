@@ -12,6 +12,10 @@
 @import 'utils/global.module.scss';
 @import 'utils/typography.module.scss';
 @import 'utils/grid.module.scss';
+@import 'utils/animation.module.scss';
+
+// Pages
+@import 'pages/404.module.scss';
 
 // Components
 @import 'components/button.module.scss';

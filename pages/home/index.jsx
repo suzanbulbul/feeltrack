@@ -6,10 +6,11 @@ import { selectUser, selectUserInfo, selecLoggingOut } from "../../redux/userSli
 
 //Components
 import Modal from '../../components/modal';
+import Loading from '../../components/loading';
+import Head from '../../components/head';
 
 // Sections
 import InitialModal from '../../sections/initialModal'
-import Head from '../../sections/head';
 import DailyList from '../../sections/dailyList';
 
 
@@ -36,7 +37,7 @@ const Home = () => {
   };
 
   if (loading) {
-    return <p>Yükleniyor...</p>;
+    return <Loading/>;
   }
   if (loggingOut) {
     return <p>Çıkış Yapılıyor...</p>;
@@ -44,23 +45,21 @@ const Home = () => {
 
   return (
     <div>
-     <Head title="Feel Track - Home"/>
-     {user && (
-        <p className='subtitle mb-10'>
+      <Head title="Feel Track - Home" />
+      {user && (
+        <p className="subtitle mb-10">
           Hey <b>{user.displayName}</b>
-          <br/>
+          <br />
           FeedTrick ile güne başla
         </p>
       )}
-
       {!info ? (
         <Modal isOpen={modalIsOpen}>
           <InitialModal onClose={closeModal} />
         </Modal>
       ) : (
         <DailyList />
-      )} 
-
+      )}
     </div>
   );
 }
