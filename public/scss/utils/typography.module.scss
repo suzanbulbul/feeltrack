@@ -30,9 +30,8 @@
     font-weight: 700;
     margin-bottom: 0px;
     color: $gray;
-    text-decoration: underline;
+    text-decoration: none;
     &:hover{
         color: $primary-color;
-        text-decoration: underline;
     }
 }

@@ -52,6 +52,8 @@ const Header = () => {
     router.push(page);
   }
 
+  const currentPath = router.pathname;
+
   return (
     <div className="header">
       <div className="flex justify-between items-center">
@@ -63,10 +65,10 @@ const Header = () => {
         </Link>
         <div className="navbar">
           <ul className="flex justify-between items-center">
-          <li className="px-5">
+            <li className={`link ${currentPath === '/home' ? 'active' : ""}`}>
               <Link href="/home">Home</Link>
             </li>
-            <li className="px-5">
+            <li className={`link ${currentPath === '/analysis' ? 'active' : ""}`}>
               <Link href="/analysis">Analysis</Link>
             </li>
           </ul>
@@ -81,9 +83,9 @@ const Header = () => {
             {userEditor && (
               <div className="user-editor">
                 <ul>
-                  <li>
+                <li>
                     <button
-                      className="flex justify-start items-center"
+                      className={`flex justify-start items-center ${currentPath === '/analysis' ? 'active' : ""}`}
                       onClick={routeringPage("/analysis")}
                     >
                       <MdAutoGraph className="icon" />
@@ -92,7 +94,7 @@ const Header = () => {
                   </li>
                   <li>
                     <button
-                      className="flex justify-start items-center"
+                      className={`flex justify-start items-center ${currentPath === '/settings' ? 'active' : ""}`}
                       onClick={routeringPage("/settings")}
                     >
                       <MdOutlineSettings className="icon" />

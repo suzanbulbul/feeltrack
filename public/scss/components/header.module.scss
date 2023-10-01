@@ -36,9 +36,58 @@
           text-align: center;
           padding: 10px 25px;
           &:hover{
+            color: $ivory!important;
             background: $primary-color;
             border-radius: 20px;
+            .icon{
+              color: $ivory!important;
+            }
+          }
+          &.active{
+            color: $primary-color;
+            .icon{
+              color: $primary-color;
+            }
           }
         }
     }
+
+    .navbar {
+        li {
+          position: relative;
+          padding: 5px 20px;
+
+          font-size: 16px;
+          font-weight: 500;
+
+          color: $ivory;
+      
+          &::after {
+              content: '';
+              width: 0; 
+              height: 2px;
+              background: $primary-color!important;
+              margin-top: 5px;
+              position: absolute;
+              left: 0; 
+              bottom: 0;
+              transition: width 0.3s ease; 
+          }
+      
+          &:hover {
+              font-weight: 700;
+              color: $primary-color!important;
+      
+              &::after {
+                  width: 100%;
+              }
+          }
+          
+          &.active {
+            font-weight: 700;
+            color: $primary-color;
+          } 
+      }
+    }
+    
   }
