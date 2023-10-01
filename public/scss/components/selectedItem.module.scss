@@ -20,8 +20,12 @@
     .title{
         font-size: 20px;
         color: $dark-pink;
-        text-transform: capitalize;
         margin: 0;
+    }
+    .desc{
+        width: 130px;
+        text-align: left;
+        margin-bottom: 0;
     }
 
     .icon{

@@ -175,7 +175,7 @@ const InitialModal = ({onClose}) => {
             />
             <div className="flex justify-center items-center">
               <input
-                type="number"
+                type="string"
                 placeholder="Alan Değeri"
                 value={newItemValue}
                 onChange={(e) => setNewItemValue(e.target.value)}

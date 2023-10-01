@@ -3,8 +3,10 @@ export const flattenUserInfo = (data) => {
 
   for (const key in data) {
     if (key === 'extraInfo' && Array.isArray(data[key]) && data[key].length > 0) {
-      for (const subKey in data[key][0]) {
-        result.push({ key: subKey, value: data[key][0][subKey] });
+      for (const subItem of data[key]) {
+        for (const subKey in subItem) {
+          result.push({ key: subKey, value: subItem[subKey] });
+        }
       }
     } else {
       result.push({ key, value: data[key] });
@@ -15,7 +17,9 @@ export const flattenUserInfo = (data) => {
   sortedResult.push(result.find(item => item.key === 'wakeupTime'));
   for (const item of result) {
     if (item.key !== 'wakeupTime' && item.key !== 'exercise' && item.key !== 'bedtime') {
-      sortedResult.push(item);
+      if (item.key !== 'extraInfo') {
+        sortedResult.push(item);
+      }
     }
   }
   sortedResult.push(result.find(item => item.key === 'exercise'));

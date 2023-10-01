@@ -48,7 +48,7 @@ const Home = () => {
       <Head title="Feel Track - Home" />
       {user && (
         <p className="subtitle mb-10">
-          Hey <b>{user.displayName}</b>
+          Hey <b className='custom-capitalize'>{user.displayName}</b>
           <br />
           FeedTrick ile güne başla
         </p>
