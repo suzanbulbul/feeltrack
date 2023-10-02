@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // Store
@@ -14,15 +14,36 @@ const DailyList = () => {
   const info = useSelector(selectUserInfo);
   const flattendata = flattenUserInfo(info);
 
+  const initialSelectedItems = flattendata.map(data => ({
+    ...data,
+    select: false,
+  }));
+
+  const [selectedItems, setSelectedItems] = useState(initialSelectedItems);
+
+  const handleItemSelect = (selectedItem) => {
+    const selectedItemIndex = selectedItems.findIndex(item => item.key === selectedItem.key);
+    if (selectedItemIndex !== -1) {
+      const updatedItems = [...selectedItems];
+      updatedItems[selectedItemIndex] = {
+        ...selectedItem,
+        select: !selectedItem.select,
+      };
+      setSelectedItems(updatedItems);
+    }
+  };
+
   return (
     <div>
-      <div>
-        {flattendata.map((data, value) => (
-          <SelectedItem key={value} title={data.key} value={data.value}/>
+      <ul>
+        {flattendata.map((data, id) => (
+          <li key={id}>
+            <SelectedItem data={data} onItemSelect={handleItemSelect} />
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
 
-export default DailyList
+export default DailyList;

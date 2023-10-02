@@ -9,35 +9,44 @@ import { BiSolidMoon } from 'react-icons/bi';
 import { IoIosFitness } from 'react-icons/io';
 import { RiCalendarTodoLine } from 'react-icons/ri'; 
 
-const SelectedItem = ({ title, value }) => {
-  const [checked, setChecked] = useState(false);
+const SelectedItem = ({ data, onItemSelect }) => {
+  const [checked, setChecked] = useState(data.select);
 
   let selectedIcon;
   let formatTitle;
 
-  if (title === "bedtime") {
+  if (data.key === "bedtime") {
     selectedIcon = <BiSolidMoon className='icon bedtime'/>;
     formatTitle= "Bed Time"
-  } else if (title === "wakeupTime") {
+  } else if (data.key === "wakeupTime") {
     selectedIcon = <BsSun className='icon wakeup'/>;
     formatTitle= "Wake Up"
-  } else if (title === "exercise") {
+  } else if (data.key === "exercise") {
     selectedIcon = <IoIosFitness className='icon exercise'/>;
   } else {
     selectedIcon = <RiCalendarTodoLine className='icon todo'/>;
   }
-  
+
+  const handleSelectChange = () => {
+    setChecked(!checked);
+    const newData = {
+      ...data,
+      select: checked,
+    };
+    onItemSelect(newData);
+  };
+
   return (
-    <button onClick={() => setChecked(!checked)} className="checkItem w-100">
+    <button onClick={handleSelectChange} className="checkItem w-100">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between">
           {selectedIcon}
           <div className="flex items-center justify-between">
             <h5 className="desc mr-4">
-              {formatTitle ? formatTitle : title}
+              {formatTitle ? formatTitle : data.key}
             </h5>
             <p className="title">
-              {!isNaN(value) ? value + " dk." : value}
+              {!isNaN(data.value) ? data.value + " dk." : data.value}
             </p>
           </div>
         </div>
