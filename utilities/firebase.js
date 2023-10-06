@@ -40,7 +40,6 @@ export const login = async (email, password) => {
   try {
     const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-    // Firestore'dan kullanıcı bilgilerini al
     const userDoc = await getDoc(doc(db, "users", user.uid));
     const userData = userDoc.data();
 
@@ -77,7 +76,6 @@ export const saveUserInformation = async (userId, wakeupTime, bedtime, exercise,
       },
     };
 
-    // Firestore dokümanı güncelleme işlemi
     await updateDoc(userRef, dataToUpdate);
     
     return "İşlem başarıyla tamamlandı", dataToUpdate.userInfo;
@@ -87,10 +85,31 @@ export const saveUserInformation = async (userId, wakeupTime, bedtime, exercise,
   }
 };
 
+export const selectedUserInfo = async (userId, date, items) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.data() || {};
 
+    if (!userData.completedDays) {
+      userData.completedDays = {};
+    }
 
+    if (!userData.completedDays[date]) {
+      userData.completedDays[date] = {};
+    }
 
+    userData.completedDays[date] = items;
 
+    await updateDoc(userRef, userData);
+
+    return "İşlem başarıyla tamamlandı", userData.completedDays;
+  } catch (error) {
+    console.error("Veritabanı güncelleme hatası: ", error);
+    throw error;
+  }
+};
 
 
 

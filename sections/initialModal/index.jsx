@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { saveUserInformation } from "../../utilities/firebase";
 
 // Redux
-import { infoHandle } from "../../redux/userSlice";
+import { infoHandle, selectUser } from "../../redux/userSlice";
 
 // Icons
 import {  AiFillPlusCircle } from "react-icons/ai";
@@ -24,7 +24,7 @@ const InitialModal = ({onClose}) => {
   const [newItemValue, setNewItemValue] = useState('');
   const [addArea, setAddArea] = useState(true);
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(selectUser);
 
   const toggleDoc = () => {
     setDocVisible(!docVisible);
@@ -68,13 +68,10 @@ const InitialModal = ({onClose}) => {
         </button>
       </div>
       {docVisible && (
-        <>
           <h1>
             Sağlıklı bir yaşam sürdürebilmeniz için günlük olarak yapmanız
             gereken bazı temel şeyler vardır:
           </h1>
-          <ul>{/* ... (diğer liste öğeleri) */}</ul>
-        </>
       )}
       <form onSubmit={handleSubmit}>
         <div className="input mb-4 flex justify-between items-center">

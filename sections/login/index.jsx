@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { login } from "../../utilities/firebase";
 
 //Redux
-import { loginHandle } from "../../redux/userSlice"; // userSlice dosyanıza uygun yolu vermelisiniz
+import { loginHandle, updateSelectedItems } from "../../redux/userSlice"; // userSlice dosyanıza uygun yolu vermelisiniz
 import { infoHandle } from "../../redux/userSlice"; 
 
 //Icons
@@ -35,6 +35,8 @@ export default function Login() {
         if (user) {
           dispatch(loginHandle(JSON.stringify(user)));
           dispatch(infoHandle(user.userData));
+          dispatch(updateSelectedItems(user.userData.completedDays['16.12.2023']));
+          updateSelectedItems
           toast.success("Login successful.");
           router.push("/home");
         }
