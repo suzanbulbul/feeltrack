@@ -9,6 +9,7 @@ import { selectUserInfo, updateSelectedItems, selectItems, selectUser } from "..
 
 //Helpers
 import { flattenUserInfo } from "../../utilities/helpers/flattenUserInfo";
+import { formatDate } from "../../utilities/helpers/formatDate";
 
 // Components
 import SelectedItem from '../../components/selectedItem';
@@ -21,8 +22,8 @@ const DailyList = () => {
   const user = useSelector(selectUser);
 
   const flattendata = flattenUserInfo(info);
-
-  
+  const todayDate = formatDate();
+    
   useEffect(() => {
     if (selectedItems.length === 0) {
       const initialSelectedItems = flattendata.map(data => ({
@@ -42,7 +43,7 @@ const DailyList = () => {
         select: !selectedItem.select,
       };
       dispatch(updateSelectedItems(updatedItems));
-      selectedUserInfo(user.uid, "16.12.2023", updatedItems);
+      selectedUserInfo(user.uid, todayDate, updatedItems);
     }
   };
 

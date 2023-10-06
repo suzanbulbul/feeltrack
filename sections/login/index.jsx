@@ -7,8 +7,10 @@ import toast from 'react-hot-toast';
 import { login } from "../../utilities/firebase";
 
 //Redux
-import { loginHandle, updateSelectedItems } from "../../redux/userSlice"; // userSlice dosyanıza uygun yolu vermelisiniz
-import { infoHandle } from "../../redux/userSlice"; 
+import { loginHandle, infoHandle, updateSelectedItems } from "../../redux/userSlice";
+
+//Helpers
+import { formatDate } from "../../utilities/helpers/formatDate";
 
 //Icons
 import { AiOutlineMail } from "react-icons/ai";
@@ -17,6 +19,8 @@ import { RiLockPasswordLine } from "react-icons/ri";
 export default function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const todayDate = formatDate();
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -35,7 +39,7 @@ export default function Login() {
         if (user) {
           dispatch(loginHandle(JSON.stringify(user)));
           dispatch(infoHandle(user.userData));
-          dispatch(updateSelectedItems(user.userData.completedDays['16.12.2023']));
+          dispatch(updateSelectedItems(user.userData.completedDays[todayDate]));
           updateSelectedItems
           toast.success("Login successful.");
           router.push("/home");
