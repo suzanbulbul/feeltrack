@@ -37,7 +37,7 @@ export const { loginHandle, infoHandle, logout, logoutComplete, updateSelectedIt
 export const selectUser = (state) => state.user.user;
 export const selectUserInfo = (state) => state.user.info?.userInfo;
 export const selecLoggingOut = (state) => state.user.isLoggingOut;
-export const selectItems = (state) => state.user.selectedItems;
+export const selectItems = (state) => state.user.selectedItems ? state.user.selectedItems : [];
 
 
 export default userSlice.reducer;

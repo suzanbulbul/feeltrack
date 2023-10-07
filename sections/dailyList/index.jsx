@@ -13,6 +13,7 @@ import { formatDate } from "../../utilities/helpers/formatDate";
 
 // Components
 import SelectedItem from '../../components/selectedItem';
+import Loading from '../../components/loading';
 
 const DailyList = () => {
   const dispatch = useDispatch();
@@ -31,8 +32,11 @@ const DailyList = () => {
         select: false,
       }));
       dispatch(updateSelectedItems(initialSelectedItems));
+      
     }
   }, [dispatch, flattendata, selectedItems]);
+
+  console.log(selectedItems);
 
   const handleItemSelect = (selectedItem) => {
     const selectedItemIndex = selectedItems.findIndex(item => item.key === selectedItem.key);
@@ -43,6 +47,7 @@ const DailyList = () => {
         select: !selectedItem.select,
       };
       dispatch(updateSelectedItems(updatedItems));
+      selectedUserInfo(user.uid, todayDate, updatedItems);
     }
   };
 
@@ -59,6 +64,10 @@ const DailyList = () => {
 
     return () => clearInterval(intervalId);
   }, [dispatch, selectedItems, todayDate, user.uid]);
+
+  if (!selectedItems || selectedItems.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <div>
