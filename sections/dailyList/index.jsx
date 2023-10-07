@@ -7,7 +7,7 @@ import { selectedUserInfo } from '../../utilities/firebase';
 // Redux
 import { selectUserInfo, updateSelectedItems, selectItems, selectUser } from "../../redux/userSlice";
 
-//Helpers
+// Helpers
 import { flattenUserInfo } from "../../utilities/helpers/flattenUserInfo";
 import { formatDate } from "../../utilities/helpers/formatDate";
 
@@ -23,7 +23,7 @@ const DailyList = () => {
 
   const flattendata = flattenUserInfo(info);
   const todayDate = formatDate();
-    
+
   useEffect(() => {
     if (selectedItems.length === 0) {
       const initialSelectedItems = flattendata.map(data => ({
@@ -43,9 +43,22 @@ const DailyList = () => {
         select: !selectedItem.select,
       };
       dispatch(updateSelectedItems(updatedItems));
-      selectedUserInfo(user.uid, todayDate, updatedItems);
     }
   };
+
+  useEffect(() => {
+    const checkEndOfDay = () => {
+      const now = new Date();
+      if (now.getHours() === 0 && now.getMinutes() === 0) {
+        selectedUserInfo(user.uid, todayDate, selectedItems);
+        dispatch(updateSelectedItems([]));
+      }
+    };
+
+    const intervalId = setInterval(checkEndOfDay, 60000);
+
+    return () => clearInterval(intervalId);
+  }, [dispatch, selectedItems, todayDate, user.uid]);
 
   return (
     <div>
@@ -58,6 +71,6 @@ const DailyList = () => {
       </ul>
     </div>
   );
-}
+};
 
 export default DailyList;
