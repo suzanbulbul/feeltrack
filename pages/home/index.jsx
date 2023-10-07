@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-// Store
+// Redux
 import { selectUser, selectUserInfo, selecLoggingOut } from "../../redux/userSlice";
 
 //Components
 import Modal from '../../components/modal';
 import Loading from '../../components/loading';
 import Head from '../../components/head';
+import Banner from '../../components/banner';
 
 // Sections
 import InitialModal from '../../sections/initialModal'
 import DailyList from '../../sections/dailyList';
-
 
 const Home = () => {
 
@@ -22,7 +22,6 @@ const Home = () => {
   const user = useSelector(selectUser);
   const info = useSelector(selectUserInfo);
   const loggingOut = useSelector(selecLoggingOut);
-
 
   useEffect(() => {
     if (!user) {
@@ -46,13 +45,9 @@ const Home = () => {
   return (
     <div>
       <Head title="Feel Track - Home" />
-      {user && (
-        <p className="subtitle mb-10">
-          Hey <b className='custom-capitalize'>{user.displayName}</b>
-          <br />
-          FeedTrick ile güne başla
-        </p>
-      )}
+
+      <Banner/>
+
       {!info ? (
         <Modal isOpen={modalIsOpen}>
           <InitialModal onClose={closeModal} />
