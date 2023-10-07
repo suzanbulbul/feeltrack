@@ -27,7 +27,7 @@ const Banner = () => {
               Hey <b className="custom-capitalize ms-2">{user.displayName}</b>
               <FaRegHandSpock className="icon"/>
             </p>
-            <p className='title'> <b className='me-2'>FeedTrick</b> ile güne başla
+            <p className='title'> <b className='me-2'>FeelTrack</b> ile güne başla
                 <PiPencilCircleBold className="icon"/>
             </p>
           </div>

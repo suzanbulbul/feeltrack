@@ -1,6 +1,6 @@
 .banner{
     .title{
-        color: $primary-color;
+        color: $gray;
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 15px;
@@ -9,7 +9,6 @@
         flex-direction: row;
         align-items: end;
         b{
-            color: $primary-color;
             font-size: 22px;
         }
     }  
