@@ -10,7 +10,6 @@ import Header from '../header';
 
 const Layout = ({ children }) => {
   const user = useSelector(selectUser);
-  console.log(user);
 
   const router = useRouter();
 

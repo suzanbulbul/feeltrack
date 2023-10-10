@@ -6,28 +6,22 @@ const Table = ({ data }) => {
     <div>
       <table className="min-w-full">
         <thead>
-          <tr>
-            {data.map((item, index) => (
-              <th
-                key={index}
-                className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-              >
-                {item.key}
-              </th>
+          <tr className="bg-white">
+            <th className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">Date</th>
+            {data[0].items.map((item, itemIndex) => (
+              <th className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center" key={itemIndex}>{item.key}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-white">
-            {data.map((item, index) => (
-              <td
-                key={index}
-                className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-              >
-                {item.value}
-              </td>
-            ))}
-          </tr>
+          {data.map((data, index) => (
+            <tr className="bg-white" key={index}>
+              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">{data.date}</td>
+              {data.items.map((item, itemIndex) => (
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center" key={itemIndex}>{item.value}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

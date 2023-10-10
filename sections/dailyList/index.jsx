@@ -36,8 +36,6 @@ const DailyList = () => {
     }
   }, [dispatch, flattendata, selectedItems]);
 
-  console.log(selectedItems);
-
   const handleItemSelect = (selectedItem) => {
     const selectedItemIndex = selectedItems.findIndex(item => item.key === selectedItem.key);
     if (selectedItemIndex !== -1) {
