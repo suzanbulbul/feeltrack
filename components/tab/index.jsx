@@ -1,7 +1,5 @@
 import React from "react";
 
-// ${tab.name === "register" ? "test" : "test1"}
-
 const Tab = ({ tabs, activeTab, handleTabClick, justify }) => {
   return (
     <div

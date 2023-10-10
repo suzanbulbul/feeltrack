@@ -10,7 +10,7 @@ import { tableMappedData } from "../../utilities/helpers/tableMappedData";
 // Components
 import Head from '../../components/head';
 import Table from '../../components/table';
-import Tab from '../../components/Tab';
+import Tab from '../../components/tab';
 
 const Analysis = () => {
   const [activeTab, setActiveTab] = useState("table");
@@ -31,7 +31,12 @@ const Analysis = () => {
   return (
     <div>
       <Head title="Feel Track - Analysis" />
-      <Tab justify="center" tabs={tabs} activeTab={activeTab} handleTabClick={handleTabClick} />
+      <Tab
+        justify="center"
+        tabs={tabs}
+        activeTab={activeTab}
+        handleTabClick={handleTabClick}
+      />
       {activeTab === "table" && <Table data={data} />}
       {activeTab === "graphic" && <h1>graphic</h1>}
     </div>
