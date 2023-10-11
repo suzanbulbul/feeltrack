@@ -21,20 +21,32 @@ const DailyList = () => {
   const selectedItems = useSelector(selectItems);
   const info = useSelector(selectUserInfo);
   const user = useSelector(selectUser);
-
   const flattendata = flattenUserInfo(info);
   const todayDate = formatDate();
 
-  useEffect(() => {
-    if (selectedItems.length === 0) {
+  const checkTime = (userUid, currentDate, items) => {
+    const now = new Date();
+    if (now.getHours() === 23 && now.getMinutes() === 59) {
+      selectedUserInfo(userUid, currentDate, items);
+    }
+    if (now.getHours() === 0 && now.getMinutes() === 0) {
       const initialSelectedItems = flattendata.map(data => ({
         ...data,
         select: false,
       }));
-      dispatch(updateSelectedItems(initialSelectedItems));
-      
+      selectedUserInfo(userUid, currentDate, initialSelectedItems);
     }
-  }, [dispatch, flattendata, selectedItems]);
+  };
+
+  useEffect(() => {
+    checkTime(user.uid, todayDate, selectedItems);
+
+    const intervalId = setInterval(() => {
+      checkTime(user.uid, todayDate, selectedItems);
+    }, 60000);
+
+    return () => clearInterval(intervalId);
+  }, [dispatch, selectedItems, todayDate, user.uid]);
 
   const handleItemSelect = (selectedItem) => {
     const selectedItemIndex = selectedItems.findIndex(item => item.key === selectedItem.key);
@@ -48,20 +60,6 @@ const DailyList = () => {
       selectedUserInfo(user.uid, todayDate, updatedItems);
     }
   };
-
-  useEffect(() => {
-    const checkEndOfDay = () => {
-      const now = new Date();
-      if (now.getHours() === 0 && now.getMinutes() === 0) {
-        selectedUserInfo(user.uid, todayDate, selectedItems);
-        dispatch(updateSelectedItems([]));
-      }
-    };
-
-    const intervalId = setInterval(checkEndOfDay, 60000);
-
-    return () => clearInterval(intervalId);
-  }, [dispatch, selectedItems, todayDate, user.uid]);
 
   if (!selectedItems || selectedItems.length === 0) {
     return <Loading />;
