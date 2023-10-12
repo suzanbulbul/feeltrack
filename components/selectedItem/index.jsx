@@ -10,17 +10,14 @@ import { IoIosFitness } from 'react-icons/io';
 import { RiCalendarTodoLine } from 'react-icons/ri'; 
 
 const SelectedItem = ({ data, onItemSelect }) => {
-  const [checked, setChecked] = useState(data.select);
+  const [checked, setChecked] = useState(data.selected);
 
   let selectedIcon;
-  let formatTitle;
 
   if (data.key === "bedtime") {
     selectedIcon = <BiSolidMoon className='icon bedtime'/>;
-    formatTitle= "Bed Time"
   } else if (data.key === "wakeupTime") {
     selectedIcon = <BsSun className='icon wakeup'/>;
-    formatTitle= "Wake Up"
   } else if (data.key === "exercise") {
     selectedIcon = <IoIosFitness className='icon exercise'/>;
   } else {
@@ -30,8 +27,10 @@ const SelectedItem = ({ data, onItemSelect }) => {
   const handleSelectChange = () => {
     setChecked(!checked);
     const newData = {
-      ...data,
-      select: checked,
+      key: data.key,
+      title: data.title,
+      value: data.value,
+      selected: !checked,
     };
     onItemSelect(newData);
   };
@@ -43,10 +42,10 @@ const SelectedItem = ({ data, onItemSelect }) => {
           {selectedIcon}
           <div className="flex items-center justify-between">
             <h5 className="desc mr-4">
-              {formatTitle ? formatTitle : data.key}
+              {data.title}
             </h5>
             <p className="title">
-              {!isNaN(data.value) ? data.value + " dk." : data.value}
+              {data.value} 
             </p>
           </div>
         </div>
