@@ -70,9 +70,9 @@ export const saveUserInformation = async (userId, wakeupTime, bedtime, exercise,
     const dataToUpdate = {
       userInfo: {
         wakeupTime: wakeupTime,
-        bedtime: bedtime,
-        exercise: exercise,
         extraInfo: items,
+        exercise: exercise,
+        bedtime: bedtime,
       },
     };
 

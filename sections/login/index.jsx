@@ -40,7 +40,6 @@ export default function Login() {
           dispatch(loginHandle(JSON.stringify(user)));
           dispatch(infoHandle(user.userData));
           dispatch(updateSelectedItems(user.userData.completedDays[todayDate]));
-          updateSelectedItems
           toast.success("Login successful.");
           router.push("/home");
         }
