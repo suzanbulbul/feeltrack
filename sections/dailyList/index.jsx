@@ -23,6 +23,7 @@ const DailyList = () => {
   const user = useSelector(selectUser);
   const flattendata = flattenUserInfo(info);
   const todayDate = formatDate();
+  const [test, setTest] = useState(false);
 
   const checkTime = (userUid, currentDate, items) => {
     const now = new Date();
@@ -35,8 +36,11 @@ const DailyList = () => {
         select: false,
       }));
       selectedUserInfo(userUid, currentDate, initialSelectedItems);
+      setTest(true);
     }
   };
+
+  console.log(test, "test")
 
   useEffect(() => {
     checkTime(user.uid, todayDate, selectedItems);
