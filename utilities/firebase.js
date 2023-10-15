@@ -118,7 +118,11 @@ export const getCompletedDays = async (userId, date) => {
     const userData = userDoc.data() || {};
 
     if (userData.completedDays) {
-      return userData.completedDays[date];
+      if (date) {
+        return userData.completedDays[date];
+      } else {
+        return userData.completedDays;
+      }
     } else {
       return null;
     }

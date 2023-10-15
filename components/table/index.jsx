@@ -1,66 +1,68 @@
 import React from 'react';
 
-//Icons
+// Icons
 import { FaCheck } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 
 const Table = ({ data }) => {
-  console.log(data);
+  const sortedData = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
 
   return (
     <div>
-      <table className="min-w-full">
-        <thead>
-          <tr className="bg-white">
-            <th className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
-              Date
-            </th>
-            {data[0].items.map((item, itemIndex) => (
-              <th
-                className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center"
-                key={itemIndex}
-              >
-                {item.key} <br /> ( {item.value} )
+      {sortedData.length && (
+        <table className="min-w-full">
+          <thead>
+            <tr className="bg-white">
+              <th className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
+                Date
               </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((data, index) => (
-            <tr className="bg-white" key={index}>
-              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
-                {data.date}
-              </td>
-              {data.items.map((item, itemIndex) => (
-                <td
+              {sortedData[0][1].map((item, itemIndex) => (
+                <th
                   className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center"
                   key={itemIndex}
                 >
-                  <span className="flex justify-center">
-                    {item.select === true ? (
-                      <FaCheck
-                        style={{
-                          fontSize: "1.1rem",
-                          color: "green",
-                        }}
-                      />
-                    ) : (
-                      <IoCloseSharp
-                        style={{
-                          fontSize: "1.5rem",
-                          color: "red",
-                        }}
-                      />
-                    )}
-                  </span>
-                </td>
+                  {item.title} <br /> ( {item.value} )
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sortedData.map(([date, dateData], dateIndex) => (
+              <tr className="bg-white" key={dateIndex}>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
+                  {date}
+                </td>
+                {dateData.map((item, itemIndex) => (
+                  <td
+                    className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center"
+                    key={itemIndex}
+                  >
+                    <span className="flex justify-center">
+                      {item.selected === true ? (
+                        <FaCheck
+                          style={{
+                            fontSize: "1.1rem",
+                            color: "green",
+                          }}
+                        />
+                      ) : (
+                        <IoCloseSharp
+                          style={{
+                            fontSize: "1.5rem",
+                            color: "red",
+                          }}
+                        />
+                      )}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
-}
+};
 
 export default Table;

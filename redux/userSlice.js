@@ -4,7 +4,6 @@ const initialState = {
   user: null,
   info: null,
   isLoggingOut: false,
-  emptyFlag: false,
 };
 
 const userSlice = createSlice({
@@ -23,7 +22,6 @@ const userSlice = createSlice({
     logoutComplete: (state) => {
       state.user = null;
       state.info = null;
-      state.selectedItems = [];
       state.isLoggingOut = false;
     },
   }
@@ -34,7 +32,6 @@ export const { loginHandle, infoHandle, logout, logoutComplete} = userSlice.acti
 export const selectUser = (state) => state.user.user;
 export const selectUserInfo = (state) => state.user.info?.userInfo;
 export const selecLoggingOut = (state) => state.user.isLoggingOut;
-export const selectCompletedDays = (state) => state.user.info?.completedDays;
 
 
 export default userSlice.reducer;

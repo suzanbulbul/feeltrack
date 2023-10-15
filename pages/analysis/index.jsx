@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-// Redux
-import { selectCompletedDays } from "../../redux/userSlice"
+//Firebase
+import { getCompletedDays } from '../../utilities/firebase';
 
-// Helpers
-import { tableMappedData } from "../../utilities/helpers/tableMappedData";
+//Redux
+import { selectUser } from '../../redux/userSlice';
+
+//Helpers
+import { formatDate } from '../../utilities/helpers/formatDate';
 
 // Components
 import Head from '../../components/head';
@@ -13,16 +16,30 @@ import Table from '../../components/table';
 import Tab from '../../components/tab';
 
 const Analysis = () => {
+  const user = useSelector(selectUser);
+
+  const todayDate = formatDate();
+
   const [activeTab, setActiveTab] = useState("table");
+  const [completedDays, setCompletedDays] = useState([]);
 
-  const completedDays = useSelector(selectCompletedDays);
-
-  const data = tableMappedData(completedDays);
+  useEffect(() => {
+    completedUserInfo();
+  }, []);
 
   const tabs = [
     { name: "table", label: "Table Report" },
     { name: "graphic", label: "Graphic" },
   ];
+
+  const completedUserInfo = async () => {
+    try {
+      const completedData = await getCompletedDays(user.uid);
+      setCompletedDays(completedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -37,7 +54,7 @@ const Analysis = () => {
         activeTab={activeTab}
         handleTabClick={handleTabClick}
       />
-      {activeTab === "table" && <Table data={data} />}
+      {activeTab === "table" && <Table data={completedDays} />}
       {activeTab === "graphic" && <h1>graphic</h1>}
     </div>
   );
