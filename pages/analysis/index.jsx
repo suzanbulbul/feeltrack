@@ -7,9 +7,6 @@ import { getCompletedDays } from '../../utilities/firebase';
 //Redux
 import { selectUser } from '../../redux/userSlice';
 
-//Helpers
-import { formatDate } from '../../utilities/helpers/formatDate';
-
 // Components
 import Head from '../../components/head';
 import Table from '../../components/table';
@@ -17,8 +14,6 @@ import Tab from '../../components/tab';
 
 const Analysis = () => {
   const user = useSelector(selectUser);
-
-  const todayDate = formatDate();
 
   const [activeTab, setActiveTab] = useState("table");
   const [completedDays, setCompletedDays] = useState([]);

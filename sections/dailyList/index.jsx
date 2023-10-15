@@ -42,7 +42,7 @@ const DailyList = () => {
     try {
       const completedData = await getCompletedDays(user.uid, todayDate);
 
-      if(completedData === null){
+      if(completedData === null || completedData === undefined){
         emptyCompletedData();
       }
       else{
@@ -64,7 +64,7 @@ const DailyList = () => {
     setDailyData(updatedDailyData);
   };
 
-  if(dailyData.length === 0){
+  if(!dailyData || dailyData === undefined){
     return <Loading />
   }
 
