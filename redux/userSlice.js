@@ -4,7 +4,7 @@ const initialState = {
   user: null,
   info: null,
   isLoggingOut: false,
-  selectedItems: [],
+  emptyFlag: false,
 };
 
 const userSlice = createSlice({
@@ -26,18 +26,14 @@ const userSlice = createSlice({
       state.selectedItems = [];
       state.isLoggingOut = false;
     },
-    updateSelectedItems: (state, action) => {
-      state.selectedItems = action.payload;
-    },
-  },
+  }
 });
 
-export const { loginHandle, infoHandle, logout, logoutComplete, updateSelectedItems } = userSlice.actions;
+export const { loginHandle, infoHandle, logout, logoutComplete} = userSlice.actions;
 
 export const selectUser = (state) => state.user.user;
 export const selectUserInfo = (state) => state.user.info?.userInfo;
 export const selecLoggingOut = (state) => state.user.isLoggingOut;
-export const selectItems = (state) => state.user.selectedItems;
 export const selectCompletedDays = (state) => state.user.info?.completedDays;
 
 

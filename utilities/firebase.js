@@ -85,7 +85,7 @@ export const saveUserInformation = async (userId, wakeupTime, bedtime, exercise,
   }
 };
 
-export const selectedUserInfo = async (userId, date, items) => {
+export const submittedUserInfo = async (userId, date, items) => {
   try {
     const userRef = doc(db, "users", userId);
     
@@ -107,6 +107,23 @@ export const selectedUserInfo = async (userId, date, items) => {
     return "İşlem başarıyla tamamlandı", userData.completedDays;
   } catch (error) {
     console.error("Veritabanı güncelleme hatası: ", error);
+    throw error;
+  }
+};
+
+export const getCompletedDays = async (userId, date) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.data() || {};
+
+    if (userData.completedDays) {
+      return userData.completedDays[date];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Veri çekme hatası: ", error);
     throw error;
   }
 };

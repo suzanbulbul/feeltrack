@@ -1,57 +1,82 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-// Firebase
-import { selectedUserInfo } from '../../utilities/firebase';
+//Firebase
+import { submittedUserInfo, getCompletedDays } from '../../utilities/firebase';
 
-// Redux
-import { selectUserInfo, updateSelectedItems, selectUser, selectItems } from "../../redux/userSlice";
+//Redux
+import { selectUserInfo, selectUser } from '../../redux/userSlice';
 
-// Helpers
-import { flattenUserInfo } from "../../utilities/helpers/flattenUserInfo";
-import { formatDate } from "../../utilities/helpers/formatDate";
+//Helpers
+import { flattenUserInfo } from '../../utilities/helpers/flattenUserInfo';
+import { formatDate } from '../../utilities/helpers/formatDate';
 
-// Components
+//Components
 import SelectedItem from '../../components/selectedItem';
+import Loading from '../../components/loading';
 
 const DailyList = () => {
-  const dispatch = useDispatch();
+  const [dailyData, setDailyData] = useState([]);
+
   const info = useSelector(selectUserInfo);
   const user = useSelector(selectUser);
-  const selectList = useSelector(selectItems);
-
-  const [flattendata, setFlattendata] = useState([]);
-
-  useEffect(() => {
-    const initialFlattendata = flattenUserInfo(info);
-    setFlattendata(initialFlattendata);
-    dispatch(updateSelectedItems(initialFlattendata));
-  }, [dispatch, info]);
 
   const todayDate = formatDate();
 
-  const handleItemSelect = (selectedItem) => {
-    const updatedItems = flattendata.map(item => {
-      if (item.key === selectedItem.key) {
-        return { ...item, selected: !item.selected };
+  useEffect(() => {
+    completedUserInfo();
+  }, []);
+
+  const emptyCompletedData = async () => {
+    const initialFlattenedData = flattenUserInfo(info);
+    try {
+      const initialData = await submittedUserInfo(user.uid, todayDate, initialFlattenedData);
+      const dataArray = Object.values(initialData);
+      setDailyData(dataArray[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const completedUserInfo = async () => {
+    try {
+      const completedData = await getCompletedDays(user.uid, todayDate);
+
+      if(completedData === null){
+        emptyCompletedData();
+      }
+      else{
+        setDailyData(completedData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleItemSelect = async (data) => {
+    const updatedDailyData = dailyData.map((item) => {
+      if (item.key === data.key) {
+        item.selected = data.selected;
       }
       return item;
     });
-
-    setFlattendata(updatedItems);
-    dispatch(updateSelectedItems(updatedItems));
-    selectedUserInfo(user.uid, todayDate, updatedItems);
+    submittedUserInfo(user.uid, todayDate, updatedDailyData)
+    setDailyData(updatedDailyData);
   };
-  
+
+  if(dailyData.length === 0){
+    return <Loading />
+  }
+
   return (
     <div>
-      <ul>
-        {selectList.map((data, id) => (
+       <ul>
+        {dailyData.map((data, id) => (
           <li key={id}>
             <SelectedItem data={data} onItemSelect={handleItemSelect} />
           </li>
         ))}
-      </ul>
+      </ul> 
     </div>
   );
 };
